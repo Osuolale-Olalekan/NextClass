@@ -1,6 +1,14 @@
 import { Product } from "@/types"
 import Image from "next/image"
 
+export const generateStaticParams = async () => {
+  const productsResponse = await fetch("https://fakestoreapi.com/products")
+  const products: Product[] = await productsResponse.json()
+
+  return products.map((product) => ({ id: product.id }))
+  // return [{id:1}, {id:2}, {id:22}]
+}
+
 const Page = async () => {
   const productsResponse = await fetch("https://fakestoreapi.com/products")
   const products: Product[] = await productsResponse.json()
