@@ -1,5 +1,6 @@
 import ProductCard from "@/components/ProductCard"
 import ProductsList from "@/components/Products"
+import ProductsListCL from "@/components/ProductsCL"
 import ProductsSkeleton from "@/components/ProductsSkeleton"
 import { Product } from "@/types"
 import { getProducts } from "@/utils"
@@ -17,17 +18,18 @@ const Page = async () => {
   // const productsResponse = await fetch("https://fakestoreapi.com/products")
   // const products: Product[] = await productsResponse.json()
 
-  const products = getProducts()
+  // const products = getProducts()
 
   return (
     <div>
       <div className="flex flex-wrap gap-6 p-10">
-        <Suspense fallback={<ProductsSkeleton />}>
+        {/* <Suspense fallback={<ProductsSkeleton />}>
           <ProductsList products={products} />
-        </Suspense>
+        </Suspense> */}
         {/* {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))} */}
+        <ProductsListCL />
       </div>
     </div>
   )
