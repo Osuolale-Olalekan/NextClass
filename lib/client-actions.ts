@@ -2,13 +2,7 @@
 
 import ProductModel from "@/models/Product";
 import dbConnect from "./dbConnect";
-
-interface UpdateProduct {
-	title: string,
-	description: string,
-	price: number,
-	id: string
-}
+import { UpdateProduct } from "@/types";
 
 // to be used on the client
 export const updateClientProduct = async (product: UpdateProduct) => {
@@ -30,4 +24,19 @@ export const updateClientProduct = async (product: UpdateProduct) => {
 			success: false
 		};
 	}
+}
+
+
+export const getProduct = async ({ id }: { id: string }) => {
+	await dbConnect()
+	// const product = await ProductModel.findById(id)
+	const product = await ProductModel.findById(id).lean()
+
+	return product;
+	// return JSON.parse(JSON.stringify(product));
+	// return {
+	// 	price: product?.price,
+	// 	description: product?.description,
+	// 	title: product?.title,
+	// }
 }

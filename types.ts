@@ -36,3 +36,11 @@ type ProductV2 = Product & {
 // type Status = "pending" | "failed" | "success";
 
 // const currentStatus: Status = "success"
+
+
+export interface UpdateProduct {
+	title?: string,
+	description?: string,
+	price?: number,
+	id?: string
+}
