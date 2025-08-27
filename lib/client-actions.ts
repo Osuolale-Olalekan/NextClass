@@ -1,11 +1,16 @@
 "use server"
 
 import ProductModel from "@/models/Product";
-import dbConnect from "./dbConnect";
 import { UpdateProduct } from "@/types";
+import { revalidatePath } from "next/cache";
+import dbConnect from "./dbConnect";
 
 // to be used on the client
 export const updateClientProduct = async (product: UpdateProduct) => {
+	// should be inside login action
+	// const token = "mtoken";
+	// const cookieStore = await cookies()
+	// cookieStore.set("token", token);
 
 	try {
 		await dbConnect()
@@ -15,6 +20,8 @@ export const updateClientProduct = async (product: UpdateProduct) => {
 			price: product.price,
 		})
 
+		revalidatePath("/my-products")
+		revalidatePath(`/my-products/${product.id}`)
 		return {
 			success: true
 		};
