@@ -1,9 +1,10 @@
-import { Schema, model, models, Document, Model } from "mongoose";
+import { Schema, model, models, Document, Model, Types } from "mongoose";
 
 interface IProduct extends Document {
 	title: string,
 	description: string,
-	price: number
+	price: number,
+	user: Types.ObjectId
 }
 
 const ProductSchema = new Schema<IProduct>({
@@ -17,6 +18,11 @@ const ProductSchema = new Schema<IProduct>({
 	price: {
 		type: Number,
 		required: true
+	},
+	user: {
+		type: Schema.Types.ObjectId,
+		required: true,
+		ref: "user"
 	}
 })
 

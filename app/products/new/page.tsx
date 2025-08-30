@@ -9,6 +9,7 @@
 //     const description = formData.get("description")
 //     const price = formData.get("price")
 
+<<<<<<< HEAD
 //     try {
 //       await dbConnect()
 //       const product = await ProductModel.create({
@@ -22,6 +23,22 @@
 //     }
 //     redirect("/products")
 //   }
+=======
+    try {
+      await dbConnect()
+      const product = await ProductModel.create({
+        title,
+        description,
+        price,
+        // user:
+      })
+      console.log(product)
+    } catch (error) {
+      console.log(error)
+    }
+    redirect("/products")
+  }
+>>>>>>> c15d1f37e8224b956f0e2a8e6660b93ae21ba889
 
 //   return (
 //     <div className="flex items-center justify-between h-screen p-5 md:p-10">

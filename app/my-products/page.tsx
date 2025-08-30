@@ -1,6 +1,14 @@
 import dbConnect from "@/lib/dbConnect"
 import ProductModel from "@/models/Product"
+import { Metadata } from "next"
 import Link from "next/link"
+
+export const dynamic = "force-dynamic"
+
+export const metadata: Metadata = {
+  title: "Class Products",
+  description: "mmm",
+}
 
 const Page = async () => {
   await dbConnect()

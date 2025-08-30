@@ -6,6 +6,10 @@ import { useParams, useRouter } from "next/navigation"
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 
 const ProductForm = () => {
+  // const [state, action, pending] = useActionState(updateClientProduct, {
+  //   success: false,
+  // })
+
   const router = useRouter()
   const { id } = useParams()
   const [productForm, setProductForm] = useState<UpdateProduct>({
