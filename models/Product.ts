@@ -23,7 +23,7 @@ const ProductSchema = new Schema<IProduct>({
 	user: {
 		type: Schema.Types.ObjectId,
 		required: true,
-		ref: "user"
+		ref: "User"
 	}
 })
 

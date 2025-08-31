@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import dbConnect from "@/lib/dbConnect"
 // import ProductModel from "@/models/Product"
 // import { redirect } from "next/navigation"
@@ -22,6 +23,39 @@
 //     }
 //     redirect("/products")
 //   }
+=======
+import dbConnect from "@/lib/dbConnect"
+import { verifyUser } from "@/lib/user-action"
+import ProductModel from "@/models/Product"
+import { redirect } from "next/navigation"
+
+const Page = async () => {
+  const auth = await verifyUser()
+  if (!auth.success) {
+    redirect("/login")
+  }
+
+  const createProduct = async (formData: FormData) => {
+    "use server"
+    const title = formData.get("title")
+    const description = formData.get("description")
+    const price = formData.get("price")
+
+    try {
+      await dbConnect()
+      const product = await ProductModel.create({
+        title,
+        description,
+        price,
+        user: auth.id,
+      })
+      console.log(product)
+    } catch (error) {
+      console.log(error)
+    }
+    redirect("/products")
+  }
+>>>>>>> 4f112a4aa2a857dd0e6a2e5a9663614115f5812a
 
 //   return (
 //     <div className="flex items-center justify-between h-screen p-5 md:p-10">
