@@ -2,10 +2,13 @@
 
 import { useState } from "react"
 import { createProduct } from "@/lib/actions" 
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
+import { getUserWithId, verifyUser } from "@/lib/user-action"
 
 
-export default function NewProductPage() {
+export default function NewProductPage () {
+  
+  
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   

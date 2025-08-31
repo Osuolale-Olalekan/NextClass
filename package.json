@@ -9,11 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "bcryptjs": "^3.0.2",
-=======
-    "bcrypt": "^6.0.0",
->>>>>>> c15d1f37e8224b956f0e2a8e6660b93ae21ba889
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.2",
     "next": "15.4.5",
@@ -24,10 +20,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-<<<<<<< HEAD
-=======
     "@types/bcrypt": "^6.0.0",
->>>>>>> c15d1f37e8224b956f0e2a8e6660b93ae21ba889
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/react": "^19",

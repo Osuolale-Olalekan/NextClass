@@ -15,8 +15,10 @@ const LoginForm = () => {
     e.preventDefault()
     const updateP = await loginAction(userForm)
     if (updateP.success) {
-      router.push("/profile")
+      router.push("/add-products")
     }
+    // console.log(updateP);
+    
   }
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +35,7 @@ const LoginForm = () => {
         onSubmit={registerUserHandler}
         className="max-w-xl w-full m-auto shadow rounded p-4"
       >
-        <h3 className="font-semibold">Register</h3>
+        <h3 className="font-semibold">Sign in</h3>
 
         <div className="flex flex-col mt-6 gap-4">
           <div className="flex gap-4 items-center">
@@ -56,7 +58,7 @@ const LoginForm = () => {
           />
 
           <button className="h-12 rounded bg-blue-800 font-medium text-white">
-            Save
+            Login
           </button>
         </div>
       </form>

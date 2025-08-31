@@ -2,7 +2,7 @@
 
 import UserModel from "@/models/User"
 import dbConnect from "./dbConnect"
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
 import { cookies } from "next/headers";
 
@@ -36,7 +36,7 @@ export const loginAction = async ({ email, password }: { password: string, email
 		}
 
 		const hashedPassword = user.password;
-		const validPassword = bcrypt.compare(password, hashedPassword);
+		const validPassword = await bcrypt.compare(password, hashedPassword); //added await..
 
 		if (!validPassword) {
 			return {
@@ -88,6 +88,7 @@ export const verifyUser = async () => {
 }
 
 export const getUserWithId = async (id: string) => {
+	await dbConnect();
 	const user = await UserModel.findById(id).lean();
 
 	return user;

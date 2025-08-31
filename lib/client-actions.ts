@@ -33,7 +33,6 @@ export const updateClientProduct = async (product: UpdateProduct) => {
 	}
 }
 
-
 export const getProduct = async ({ id }: { id: string }) => {
 	await dbConnect()
 	// const product = await ProductModel.findById(id)

@@ -19,6 +19,7 @@ const ProductSchema = new Schema<IProduct>({
 		type: Number,
 		required: true
 	},
+
 	user: {
 		type: Schema.Types.ObjectId,
 		required: true,

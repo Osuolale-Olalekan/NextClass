@@ -29,7 +29,7 @@ export const signUpAction = async (formData: FormData) => {
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
-  
+
   users.push({ email, passwordHash });
 
   return {success: true, message: 'Account created.'}
@@ -83,6 +83,8 @@ export const createProduct = async (formData: FormData) => {
   const title = formData.get("title");
   const description = formData.get("description");
   const price = formData.get("price");
+  const user = formData.get("user");
+
 
   try {
     await dbConnect();
@@ -90,6 +92,8 @@ export const createProduct = async (formData: FormData) => {
       title,
       description,
       price,
+      user
+      
     });
     console.log(product);
   } catch (error) {
