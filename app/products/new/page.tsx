@@ -15,6 +15,7 @@ const Page = () => {
         title,
         description,
         price,
+        // user:
       })
       console.log(product)
     } catch (error) {
