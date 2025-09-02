@@ -1,8 +1,14 @@
 import dbConnect from "@/lib/dbConnect"
+import { verifyUser } from "@/lib/user-action"
 import ProductModel from "@/models/Product"
 import { redirect } from "next/navigation"
 
-const Page = () => {
+const Page = async () => {
+  const auth = await verifyUser()
+  if (!auth.success) {
+    redirect("/login")
+  }
+
   const createProduct = async (formData: FormData) => {
     "use server"
     const title = formData.get("title")
@@ -15,7 +21,7 @@ const Page = () => {
         title,
         description,
         price,
-        // user:
+        user: auth.id,
       })
       console.log(product)
     } catch (error) {

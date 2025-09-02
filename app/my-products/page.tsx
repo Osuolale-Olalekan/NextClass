@@ -1,7 +1,9 @@
 import dbConnect from "@/lib/dbConnect"
+import { verifyUser } from "@/lib/user-action"
 import ProductModel from "@/models/Product"
 import { Metadata } from "next"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
 export const dynamic = "force-dynamic"
 
@@ -11,8 +13,14 @@ export const metadata: Metadata = {
 }
 
 const Page = async () => {
+  // const auth = await verifyUser()
+  // if (!auth.success) {
+  //   redirect("/login")
+  // }
+
   await dbConnect()
   const products = await ProductModel.find()
+  // .populate("user")
 
   return (
     <div className="flex flex-col sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
