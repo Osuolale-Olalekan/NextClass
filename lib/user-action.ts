@@ -3,8 +3,11 @@
 import UserModel from "@/models/User"
 import dbConnect from "./dbConnect"
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
+// import jwt from "jsonwebtoken"
 import { cookies } from "next/headers";
+import { jwtVerify, SignJWT } from "jose";
+
+const encodedSecret = new TextEncoder().encode(process.env.JWT_SECRET!)
 
 export const registerUser = async (user: { name: string, password: string, email: string }) => {
 	try {
@@ -45,7 +48,11 @@ export const loginAction = async ({ email, password }: { password: string, email
 			}
 		}
 
-		const token = jwt.sign({ id: String(user._id) }, process.env.JWT_SECRET!, { expiresIn: '2h' });
+		// const token = jwt.sign({ id: String(user._id) }, process.env.JWT_SECRET!, { expiresIn: '2h' });
+
+		const token = await new SignJWT({ id: String(user._id) })
+			.setProtectedHeader({ alg: 'HS256' })
+			.setExpirationTime("2h").setIssuedAt().sign(encodedSecret);
 
 		const cookieStore = await cookies();
 
@@ -79,7 +86,10 @@ export const verifyUser = async () => {
 		return { success: false }
 	}
 
-	const payload = jwt.verify(token, process.env.JWT_SECRET!);
+	// const payload = jwt.verify(token, process.env.JWT_SECRET!);
+	const { payload } = await jwtVerify(token, encodedSecret, {
+		algorithms: ['HS256']
+	})
 
 	return {
 		id: payload.id,
