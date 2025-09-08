@@ -1,34 +1,5 @@
-// export const runtime = "nodejs";   // 👈 put this right at the top
-
-// import jwt from "jsonwebtoken";
-// import type { NextRequest } from "next/server";
-// import { NextResponse } from "next/server";
-
-// export async function middleware(request: NextRequest) {
-//   const token = request.cookies.get("token")?.value;
-
-//   if (!token) {
-//     return NextResponse.redirect(new URL("/login", request.url));
-//   }
-
-//   try {
-//     const payload = jwt.verify(token, process.env.JWT_SECRET!);
-
-//     if (!payload) {
-//       return NextResponse.redirect(new URL("/login", request.url));
-//     }
-//   } catch {
-//     return NextResponse.redirect(new URL("/login", request.url));
-//   }
-// }
-
-// export const config = {
-//   matcher: "/products/:path*",
-// };
-
-
-import jwt from "jsonwebtoken";
-import type { NextRequest } from "next/server";
+import { jwtVerify } from "jose";
+import { MiddlewareConfig, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export async function middleware (request: NextRequest) {
@@ -38,14 +9,27 @@ export async function middleware (request: NextRequest) {
 		return NextResponse.redirect(new URL('/login', request.url))
 	}
 
-	const payload = jwt.verify(token, process.env.JWT_SECRET!);
+	// const payload = jwt.verify(token, process.env.JWT_SECRET!);
 
-	if (!payload) {
+	const encodedSecret = new TextEncoder().encode(process.env.JWT_SECRET!)
+	try {
+		const { payload } = await jwtVerify(token, encodedSecret, {
+			algorithms: ["HS256"]
+		})
+
+
+		if (!payload) {
+			return NextResponse.redirect(new URL('/login', request.url))
+		} else {
+			return NextResponse.next();
+		}
+	} catch (error) {
+		console.log(error);
 		return NextResponse.redirect(new URL('/login', request.url))
 	}
 }
 
 
-export const config = {
-	matcher: "/product/:path*"
+export const config: MiddlewareConfig = {
+	matcher: ["/products/:path*", "/profile"]
 }

@@ -7,7 +7,7 @@ const Page = async () => {
     redirect("/login")
   }
 
-  const user = await getUserWithId(auth.id)
+  const user = await getUserWithId(auth.id as string)
   if (!user) redirect("/login")
 
   return (
