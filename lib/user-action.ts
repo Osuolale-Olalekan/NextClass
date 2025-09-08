@@ -97,7 +97,7 @@ export const verifyUser = async () => {
 	}
 }
 
-export const getUserWithId = async (id: string) => {
+export const getUserWithId = async (id: unknown) => {
 	await dbConnect();
 	const user = await UserModel.findById(id).lean();
 
