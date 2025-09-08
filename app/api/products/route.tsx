@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/dbConnect"
 import { verifyUser } from "@/lib/user-action"
 import ProductModel from "@/models/Product"
+// import { NextResponse } from "next/server"
 
 export const dynamic = "force-static"
 
@@ -10,6 +11,7 @@ export const GET = async () => {
   const products = await ProductModel.find().lean()
 
   return Response.json({ products })
+  //we can use Response.json or NextResponse.json({message:""})
 }
 
 export const POST = async (request: Request) => {
