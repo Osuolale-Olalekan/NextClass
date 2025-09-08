@@ -4,7 +4,7 @@ import ProductModel from "@/models/Product";
 import dbConnect from "./dbConnect";
 import { redirect } from "next/navigation";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
 
 const SECRET = process.env.JWT_SECRET || "mysecretkey";
