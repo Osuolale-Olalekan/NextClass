@@ -3,59 +3,59 @@
 import ProductModel from "@/models/Product";
 import dbConnect from "./dbConnect";
 import { redirect } from "next/navigation";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import { cookies } from "next/headers";
+// import jwt from "jsonwebtoken";
+// import bcrypt from "bcrypt";
+// import { cookies } from "next/headers";
 
-const SECRET = process.env.JWT_SECRET || "mysecretkey";
+// const SECRET = process.env.JWT_SECRET || "mysecretkey";
 
-const users: {
-  email: string;
-  passwordHash: string;
-}[] = [];
+// const users: {
+//   email: string;
+//   passwordHash: string;
+// }[] = [];
 
-export const signUpAction = async (formData: FormData) => {
-  const email = formData.get("email");
-  const password = formData.get("password");
+// export const signUpAction = async (formData: FormData) => {
+//   const email = formData.get("email");
+//   const password = formData.get("password");
 
-  if (!email || !password) {
-    return { success: false, message: "Missing email or password" };
-  }
+//   if (!email || !password) {
+//     return { success: false, message: "Missing email or password" };
+//   }
 
-  const existing = users.find((u) => u.email === email);
+//   const existing = users.find((u) => u.email === email);
 
-  if (existing) {
-    return { success: true, message: "email already registered" };
-  }
+//   if (existing) {
+//     return { success: true, message: "email already registered" };
+//   }
 
-  const passwordHash = await bcrypt.hash(password, 10);
+//   const passwordHash = await bcrypt.hash(password, 10);
 
-  users.push({ email, passwordHash });
+//   users.push({ email, passwordHash });
 
-  return {success: true, message: 'Account created.'}
+//   return {success: true, message: 'Account created.'}
 
-};
+// };
 
 
-export const signInAction = async (formData: FormData) =>{
-  const email = formData.get("email");
-  const password = formData.get("password") as string;
+// export const signInAction = async (formData: FormData) =>{
+//   const email = formData.get("email");
+//   const password = formData.get("password") as string;
 
-  const user = users.find((u)=> u.email===email);
+//   const user = users.find((u)=> u.email===email);
 
-  if(!user|| !(await bcrypt.compare(password, user.passwordHash))){
-    return{success: false, message:"invalid credentials"};
-  }
+//   if(!user|| !(await bcrypt.compare(password, user.passwordHash))){
+//     return{success: false, message:"invalid credentials"};
+//   }
 
-  const token = jwt.sign({email}, SECRET, {expiresIn: "1h"})
+//   const token = jwt.sign({email}, SECRET, {expiresIn: "1h"})
 
-  const cookieStore = await cookies()
+//   const cookieStore = await cookies()
  
-  cookieStore.set('auth_token', token)
+//   cookieStore.set('auth_token', token)
 
-  return { success: true, message: "Login successful" };
+//   return { success: true, message: "Login successful" };
 
-}
+// }
 
 
 
